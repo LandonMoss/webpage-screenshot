@@ -186,3 +186,10 @@ var popup = {
   },
 };
 $(popup.ready);
+
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('capture-element-btn').addEventListener('click', function() {
+    //Calling screenshot.js
+    screenshot.captureElement('.main-content')
+  });
+});

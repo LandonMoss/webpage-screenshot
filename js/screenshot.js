@@ -4,6 +4,53 @@ var screenshot = {
 
   },
 
+    //Method to capture a elemnt on page
+    captureElement: function(selector) {
+      screenshot.tryGetUrl(function() {
+        chrome.tabs.executeScript(screenshot.thisTabId, { code: 'document.querySelector("' + selector + '").scrollIntoView();' }, function() {
+          chrome.tabs.captureVisibleTab(null, { format: 'png' }, function(dataUrl) {
+              if (dataUrl) {
+                  var capturedElement = document.createElement('img');
+                  capturedElement.src = dataUrl;
+                  document.body.appendChild(capturedElement);
+              } else {
+                  console.error('Failed to capture element:', selector);
+              }
+          });
+      });
+  });
+},
+
+//Method to upload capture screenshots
+  uploadToExternalService: function(imageData) {
+    //Upload imagedata to a external service
+    console.log('Uploading screenshot to external device.....')
+  },
+
+  // Method to optimize captured screenshots
+  optimizeScreenshot: function(imageData) {
+    // Code to optimize imageData (e.g., resize, compress) goes here
+    console.log('Optimizing screenshot...');
+    return imageData; // Return optimized imageData
+},
+
+// Method to handle errors gracefully
+handleError: function(error) {
+    // Code to handle errors (e.g., display error message to user) goes here
+    console.error('An error occurred:', error);
+},
+
+// Method to add tooltips to capture buttons
+addToolTips: function() {
+    // Code to add tooltips to capture buttons goes here
+    console.log('Adding tooltips to capture buttons...');
+},
+
+
+
+
+
+
   captureVisible: function (data) {
     $.extend(screenshot, {
       callback: null,
